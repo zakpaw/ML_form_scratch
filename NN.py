@@ -17,7 +17,7 @@ class Neural_Network:
         return 1/(1+np.exp(-x))
 
     def forward(self, x):
-        self.z2 = np.dot(X, self.W1)
+        self.z2 = np.dot(x, self.W1)
         self.a2 = self.sigmoid(self.z2)
         self.z3 = np.dot(self.a2, self.W2)
         yh = self.sigmoid(self.z3)
@@ -26,5 +26,5 @@ class Neural_Network:
 
 if __name__ == '__main__':
     X, y = spiral_data(100, 3)
-    print(X)
     nn = Neural_Network(input_l=2, output_l=3, hidden_l=2)
+    print(nn.forward(X))
