@@ -3,28 +3,28 @@ from spiral_data import spiral_data
 np.random.seed(420)
 
 
-class Layer_Dense:
-    def __init__(self, inputs_count, neurons_count):
-        # weights already transposed
-        self.weights = np.random.uniform(-1, 1, (inputs_count, neurons_count))
-        self.biases = np.zeros((1, neurons_count))
-        self.output = None
+class Neural_Network:
+    def __init__(self, input_l, output_l, hidden_l):
+        self.input_count = input_l
+        self.output_count = output_l
+        self.hidden_count = hidden_l
 
-    def forward(self, inputs):
-        self.output = np.dot(inputs, self.weights) + self.biases
+        self.W1 = np.random.randn(self.input_count, self.hidden_count)
+        self.W2 = np.random.randn(self.hidden_count, self.output_count)
 
+    @staticmethod
+    def sigmoid(x):
+        return 1/(1+np.exp(-x))
 
-class Activation_ReLU:
-    def forward(self, inputs):
-        self.output = np.maximum(0, inputs)
+    def forward(self, x):
+        self.z2 = np.dot(X, self.W1)
+        self.a2 = self.sigmoid(self.z2)
+        self.z3 = np.dot(self.a2, self.W2)
+        yh = self.sigmoid(self.z3)
+        return yh
 
 
 if __name__ == '__main__':
     X, y = spiral_data(100, 3)
-
-    l1 = Layer_Dense(len(X[0]), 5)
-    activ1 = Activation_ReLU()
-
-    l1.forward(X)
-    activ1.forward(l1.output)
-    print(activ1.output)
+    print(X)
+    nn = Neural_Network(input_l=2, output_l=3, hidden_l=2)
